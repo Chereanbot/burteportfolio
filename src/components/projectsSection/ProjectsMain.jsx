@@ -1,112 +1,95 @@
 import SingleProject from "./SingleProject";
+import ProjectsText from "./ProjectsText";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
-
-const projects = [
-  {
-    name: "Vacation of Africa",
-    year: "Mar2022",
-    align: "right",
-    image: "../../public/images/website-img-1.jpg",
-    link: "https://cherinetafewerk.vercel.app",
-    github: "https://buymeacoffee.com/cherean",
-    description: "A comprehensive travel platform showcasing African destinations, featuring interactive maps, local guides, and real-time booking capabilities.",
-    tech: ["React", "Node.js", "MongoDB", "Mapbox API"],
-    features: [
-      "Interactive destination maps",
-      "Real-time booking system",
-      "Local guide profiles",
-      "Cultural event calendar"
-    ],
-    category: "Full Stack",
-    role: "Lead Developer",
-    impact: "Increased tourism bookings by 45%"
-  },
-  {
-    name: "Moola App",
-    year: "Sept2022",
-    align: "left",
-    image: "../../public/images/website-img-2.webp",
-    link: "https://cherinetafewerk.vercel.app",
-    github: "https://buymeacoffee.com/cherean",
-    description: "A modern financial management application helping users track expenses, set budgets, and achieve financial goals with AI-powered insights.",
-    tech: ["React Native", "Firebase", "TensorFlow.js", "Stripe"],
-
-    features: [
-      "AI-powered expense tracking",
-      "Custom budget planning",
-      "Investment portfolio tracking",
-      "Bill payment reminders"
-    ],
-    category: "Mobile App",
-    role: "Full Stack Developer",
-    impact: "100,000+ active users"
-  },
-  {
-    name: "Tourzania",
-    year: "Jan2023",
-    align: "right",
-    image: "../../public/images/website-img-3.jpg",
-    link: "https://cherinetafewerk.vercel.app",
-    github: "https://buymeacoffee.com/cherean",
-    description: "A virtual tour platform enabling users to explore historical sites and museums from home, featuring VR support and interactive storytelling.",
-    tech: ["Next.js", "Three.js", "WebGL", "Prisma"],
-
-    features: [
-      "VR-enabled virtual tours",
-      "Interactive 3D models",
-      "Historical timelines",
-      "Audio guide integration"
-    ],
-    category: "Web App",
-    role: "Frontend Specialist",
-    impact: "Featured in Tech Monthly"
-  },
-  {
-    name: "Bank of Luck",
-    year: "May2024",
-    align: "left",
-    image: "../../public/images/website-img-4.jpg",
-    link: "https://cherinetafewerk.vercel.app",
-    github: "https://buymeacoffee.com/cherean",
-    description: "A gamified savings platform that makes financial education fun and accessible for young adults through challenges and rewards.",
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL"],
-
-    features: [
-      "Daily savings challenges",
-      "Achievement system",
-      "Social saving groups",
-      "Financial education quizzes"
-    ],
-    category: "Full Stack",
-    role: "Technical Lead",
-    impact: "90% user engagement rate"
-  },
-];
+import { projects } from "./projectsData";
+import { useState, useEffect } from "react";
 
 const ProjectsMain = () => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [filteredProjects, setFilteredProjects] = useState(projects);
+
+  // Get unique categories
+  const categories = ["All", ...new Set(projects.map(project => project.category))];
+
+  useEffect(() => {
+    if (selectedCategory === "All") {
+      setFilteredProjects(projects);
+    } else {
+      setFilteredProjects(projects.filter(project => project.category === selectedCategory));
+    }
+  }, [selectedCategory]);
+
   return (
-    <section className="min-h-screen flex items-center" id="projects">
-      <div className="container mx-auto">
-        <div className="flex flex-col gap-24">
-          {/* Text */}
-          <motion.h2
-            variants={fadeIn("up", 0.2)}
+    <section className="min-h-screen" id="projects">
+      {/* Projects Text Section */}
+      <div className="w-full">
+        <ProjectsText />
+      </div>
+
+      <div className="container mx-auto px-4 mt-16">
+        {/* Category Filter */}
+        <motion.div
+          variants={fadeIn("up", 0.4)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.3 }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
+          {categories.map((category, index) => (
+            <motion.button
+              key={index}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-6 py-2 rounded-full transition-all duration-300 ${
+                selectedCategory === category
+                  ? "bg-gradient-to-r from-cyan to-orange text-white shadow-lg"
+                  : "bg-darkGrey/30 text-white/70 hover:bg-white/10 border border-white/10"
+              }`}
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(21, 209, 233, 0.3)" }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {category}
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Projects Grid */}
+        <motion.div
+          variants={fadeIn("up", 0.5)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.3 }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8"
+        >
+          {filteredProjects.map((project, index) => (
+            <SingleProject
+              key={project.id}
+              {...project}
+              index={index}
+            />
+          ))}
+        </motion.div>
+
+        {/* No Projects Found Message */}
+        {filteredProjects.length === 0 && (
+          <motion.div
+            variants={fadeIn("up", 0.5)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: false, amount: 0.3 }}
-            className="h2 text-center"
+            className="text-center py-16"
           >
-            My Projects
-          </motion.h2>
-
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <SingleProject key={index} {...project} index={index} />
-            ))}
-          </div>
-        </div>
+            <p className="text-xl text-white/70">No projects found in this category.</p>
+            <motion.button
+              onClick={() => setSelectedCategory("All")}
+              className="mt-4 text-cyan hover:text-orange transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View all projects
+            </motion.button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

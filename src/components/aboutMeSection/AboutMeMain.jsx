@@ -1,204 +1,131 @@
+import { motion } from "framer-motion";
 import AboutMeImage from "./AboutMeImage";
 import AboutMeText from "./AboutMeText";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { fadeIn } from "../../framerMotion/variants";
-import { useRef, useEffect } from "react";
-
-const FloatingParticle = ({ delay = 0 }) => (
-  <motion.div
-    className="absolute w-1 h-1 bg-cyan/30 rounded-full"
-    initial={{ scale: 0, opacity: 0 }}
-    animate={{
-      scale: [0, 1, 0],
-      opacity: [0, 0.5, 0],
-      y: [-20, -40],
-    }}
-    transition={{
-      duration: 2,
-      delay,
-      repeat: Infinity,
-      repeatType: "loop",
-    }}
-  />
-);
 
 const AboutMeMain = () => {
-  const containerRef = useRef(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
-  
-  const springConfig = { stiffness: 100, damping: 30 };
-  const x = useSpring(0, springConfig);
-  const y = useSpring(0, springConfig);
-  const rotateX = useSpring(0, springConfig);
-  const rotateY = useSpring(0, springConfig);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const rect = containerRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      const mouseX = e.clientX - centerX;
-      const mouseY = e.clientY - centerY;
-
-      x.set(mouseX * 0.1);
-      y.set(mouseY * 0.1);
-      rotateX.set(mouseY * 0.01);
-      rotateY.set(-mouseX * 0.01);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [x, y, rotateX, rotateY]);
-
   return (
-    <motion.div
-      ref={containerRef}
-      style={{ 
-        opacity,
-        scale,
-        x,
-        y,
-        rotateX,
-        rotateY,
-        perspective: 1000
-      }}
-      id="about"
-      className="relative flex md:flex-row sm:flex-col gap-12 px-4 max-w-[1200px] mx-auto mt-[100px] justify-between items-center"
-    >
-      {/* Animated Background Gradient */}
+    <section id="about" className="relative min-h-screen w-full py-20 overflow-hidden">
+      {/* Background Effects */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan/5 to-transparent"
+        className="absolute inset-0 -z-10"
+        initial={{ opacity: 0 }}
         animate={{
-          opacity: [0.3, 0.5, 0.3],
-          backgroundSize: ["100% 100%", "150% 150%", "100% 100%"],
+          opacity: [0.1, 0.3, 0.1],
+          background: [
+            "radial-gradient(circle at 20% 20%, rgba(21, 209, 233, 0.15) 0%, transparent 70%)",
+            "radial-gradient(circle at 80% 80%, rgba(251, 151, 24, 0.15) 0%, transparent 70%)",
+            "radial-gradient(circle at 20% 20%, rgba(21, 209, 233, 0.15) 0%, transparent 70%)",
+          ],
         }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
       />
-      
-      {/* Animated Grid */}
-      <motion.div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: "linear-gradient(to right, cyan 1px, transparent 1px), linear-gradient(to bottom, cyan 1px, transparent 1px)",
-          backgroundSize: "20px 20px"
-        }}
-        animate={{
-          scale: [1, 1.1, 1],
-          rotate: [0, 1, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden">
+
+      {/* Floating Tech Icons Background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+            className="absolute w-8 h-8 bg-gradient-to-br from-cyan/10 to-orange/10 rounded-lg"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              rotate: Math.random() * 360,
+              opacity: 0.1,
             }}
-          >
-            <FloatingParticle delay={i * 0.2} />
-          </motion.div>
+            animate={{
+              y: [0, -100, 0],
+              x: [0, Math.random() * 50 - 25, 0],
+              rotate: [0, 360],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 10 + Math.random() * 10,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 10,
+            }}
+          />
         ))}
       </div>
 
-      {/* Content */}
-      <motion.div
-        variants={fadeIn("right", 0)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0.7 }}
-        className="relative z-10"
-      >
-        <AboutMeText />
-      </motion.div>
+      {/* Content Container */}
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-cyan via-orange to-cyan bg-clip-text text-transparent"
+            animate={{
+              backgroundPosition: ["0%", "100%", "0%"],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            style={{
+              backgroundSize: "200% auto",
+            }}
+          >
+            About Me
+          </motion.h2>
+          <motion.div
+            className="w-24 h-1 bg-gradient-to-r from-cyan to-orange mx-auto rounded-full"
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          />
+        </motion.div>
 
-      <motion.div
-        variants={fadeIn("left", 0)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0.7 }}
-        className="relative z-10"
-      >
-        <AboutMeImage />
-      </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <AboutMeImage />
+          </motion.div>
 
-      {/* Interactive Corner Decorations */}
-      <motion.div
-        className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-cyan/30"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.6, 0.3],
-          rotate: [0, -5, 0],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-orange/30"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.6, 0.3],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1.5
-        }}
-      />
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <AboutMeText />
+          </motion.div>
+        </div>
+      </div>
 
-      {/* Glowing Orbs */}
-      <motion.div
-        className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-cyan/5 blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-orange/5 blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
-      />
-    </motion.div>
+      {/* Decorative Lines */}
+      <div className="absolute inset-0 -z-10">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-cyan/20 via-orange/20 to-cyan/20"
+            style={{ top: `${(i + 1) * 25}%` }}
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{
+              scaleX: 1,
+              opacity: [0, 0.5, 0],
+              transition: {
+                duration: 2,
+                delay: i * 0.2,
+                repeat: Infinity,
+              },
+            }}
+            viewport={{ once: true }}
+          />
+        ))}
+      </div>
+    </section>
   );
 };
 

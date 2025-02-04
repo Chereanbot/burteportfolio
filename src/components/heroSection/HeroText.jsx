@@ -1,135 +1,269 @@
 import { motion } from "framer-motion";
-import { fadeIn } from "../../framerMotion/variants";
-
-const AnimatedText = ({ children, delay, className }) => (
-  <motion.span
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay }}
-    className={className}
-  >
-    {children}
-  </motion.span>
-);
-
-const Signature = ({ text, className }) => (
-  <div className={`relative ${className}`}>
-    <div className="absolute -top-6 -right-4 w-12 h-12 bg-amber-500/10 rounded-full blur-xl animate-ink-splash" />
-    <span className="font-signature relative">
-      {text}
-      <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
-    </span>
-    <div className="absolute -bottom-2 right-0 w-8 h-8 bg-gradient-to-br from-amber-500/20 to-orange-500/10 rounded-full blur-lg animate-pulse" />
-  </div>
-);
+import { TypeAnimation } from "react-type-animation";
+import { FaGithub, FaLinkedin, FaTwitter, FaCode, FaPaintBrush, FaRocket, FaPlay } from "react-icons/fa";
+import { useState } from "react";
+import VideoModal from "./VideoModal";
 
 const HeroText = () => {
-  return (
-    <div className="flex flex-col gap-4 h-full justify-center md:text-left sm:text-center relative">
-      {/* Enhanced Ink Splash Effect */}
-      <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-amber-500/10 rounded-full blur-3xl animate-ink-splash" />
-      
-      {/* Role Title with Enhanced Colors */}
-      <motion.h2
-        variants={fadeIn("down", 0.2)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0 }}
-        className="lg:text-2xl sm:text-xl uppercase font-modern tracking-wider"
-      >
-        <span className="bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300 text-transparent bg-clip-text animate-text-shimmer bg-[size:200%_auto] hover:from-orange-500 hover:via-amber-400 hover:to-orange-500 transition-all duration-500">
-          Front-End Web Developer & Creative Designer
-        </span>
-      </motion.h2>
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  
+  const socialLinks = [
+    { icon: FaGithub, url: "https://github.com/chereanbot", color: "hover:text-cyan", label: "GitHub" },
+    { icon: FaLinkedin, url: "https://linkedin.com/in/cherine-tafework", color: "hover:text-orange", label: "LinkedIn" },
+    { icon: FaTwitter, url: "https://twitter.com/cherean", color: "hover:text-cyan", label: "Twitter" }
+  ];
 
-      {/* Main Name with Enhanced Colors */}
+  const skills = [
+    { icon: FaCode, text: "Full Stack Development", color: "from-cyan to-blue-500" },
+    { icon: FaPaintBrush, text: "UI/UX Design", color: "from-orange to-pink-500" },
+    { icon: FaRocket, text: "Performance Optimization", color: "from-green-400 to-cyan" }
+  ];
+
+  return (
+    <div className="relative">
+      {/* Video Modal */}
+      <VideoModal isOpen={isVideoModalOpen} onClose={() => setIsVideoModalOpen(false)} />
+      
+      {/* Main Content */}
+      <div className="flex flex-col gap-6">
+        {/* Greeting */}
       <motion.div
-        variants={fadeIn("right", 0.4)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0 }}
-        className="relative"
-      >
-        <h1 className="md:text-[4rem] lg:text-7xl sm:text-5xl font-elegant font-bold uppercase tracking-tight">
-          <AnimatedText 
-            delay={0.2} 
-            className="bg-gradient-to-br from-[#00ff7f] via-[#98fb98] to-[#90ee90] text-transparent bg-clip-text drop-shadow-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-lg font-light"
+        >
+          <motion.span
+            animate={{
+              color: ["#15d1e9", "#fb9718", "#15d1e9"],
+            }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="font-medium"
           >
-            birtukan
-          </AnimatedText>
-          <br className="sm:hidden md:block tx" />
-          <AnimatedText 
-            delay={0.4} 
-            className="bg-gradient-to-r from-orange-400 via-amber-500 to-orange-300 text-transparent bg-clip-text hover:from-amber-400 hover:via-orange-500 hover:to-amber-300 transition-all duration-500 drop-shadow-2xl"
+            Hello, I'm
+          </motion.span>
+        </motion.div>
+
+        {/* Name */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-5xl lg:text-7xl font-bold relative"
+        >
+          <motion.span
+            className="bg-gradient-to-r from-cyan via-orange to-cyan bg-clip-text text-transparent bg-[length:200%_auto]"
+            animate={{
+              backgroundPosition: ["0%", "200%"],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           >
-            w/mikael
-          </AnimatedText>
-        </h1>
-        
-        {/* Multiple Signatures */}
+            Birtukan W/Mikael
+          </motion.span>
+          {/* Decorative Elements */}
+          <motion.div
+            className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-cyan"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-orange"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+          />
+        </motion.h1>
+
+        {/* Animated Role */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="text-2xl lg:text-4xl font-semibold flex items-center gap-2"
+        >
+          <span className="text-white/80">I'm a</span>
+          <div className="relative inline-block">
+            <TypeAnimation
+              sequence={[
+                "Full Stack Developer",
+                2000,
+                "UI/UX Designer",
+                2000,
+                "Web3 Developer",
+                2000,
+                "AI Enthusiast",
+                2000
+              ]}
+              speed={50}
+              className="text-gradient"
+              wrapper="span"
+              repeat={Infinity}
+            />
+            <motion.div
+              className="absolute -bottom-2 left-0 h-[2px] bg-gradient-to-r from-cyan to-orange"
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 1, repeat: Infinity }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Skills */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute -bottom-20 right-0 transform"
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="flex flex-wrap gap-4 mt-2"
         >
-          {/* Main Signature */}
-          <Signature 
-            text="birtukan w/mikael" 
-            className="text-4xl text-amber-500/70 transform -rotate-[5deg] animate-signature-appear"
-          />
-          
-          {/* Secondary Signature */}
-          <Signature 
-            text="BM" 
-            className="text-3xl text-orange-500/50 absolute -top-4 right-4 transform rotate-[10deg]"
-          />
+          {skills.map((skill, index) => (
+            <motion.div
+              key={index}
+              className="flex items-center gap-2 bg-white/5 rounded-full px-4 py-2"
+              whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8 + index * 0.1 }}
+            >
+              <skill.icon className={`text-lg bg-gradient-to-r ${skill.color} text-transparent bg-clip-text`} />
+              <span className="text-sm text-white/80">{skill.text}</span>
+            </motion.div>
+          ))}
         </motion.div>
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="max-w-[600px] text-white/70 text-lg leading-relaxed relative"
+        >
+          <span className="relative">
+            Crafting innovative digital solutions with a passion for clean code and exceptional user experiences. Specializing in modern web technologies and scalable applications.
+            <motion.div
+              className="absolute -bottom-2 left-0 h-[1px] bg-gradient-to-r from-cyan/50 to-orange/50"
+              initial={{ width: "0%" }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 1 }}
+            />
+          </span>
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="flex flex-wrap gap-4 mt-4"
+        >
+          <motion.a
+            href="#contact"
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 0 20px rgba(21, 209, 233, 0.5)"
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 bg-gradient-to-r from-cyan to-orange rounded-full text-white font-medium relative overflow-hidden group"
+          >
+            <span className="relative z-10">Get in Touch</span>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-orange to-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            />
+          </motion.a>
+          <motion.a
+            href="#projects"
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 0 20px rgba(251, 151, 24, 0.3)"
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 border-2 border-white/20 rounded-full text-white font-medium hover:border-orange transition-all duration-300 relative overflow-hidden group"
+          >
+            <span className="relative z-10">View Projects</span>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-cyan/10 to-orange/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            />
+          </motion.a>
+          <motion.button
+            onClick={() => setIsVideoModalOpen(true)}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 0 20px rgba(21, 209, 233, 0.3)"
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 border-2 border-white/20 rounded-full text-white font-medium hover:border-cyan transition-all duration-300 relative overflow-hidden group flex items-center gap-2"
+          >
+            <FaPlay className="text-sm" />
+            <span className="relative z-10">View Background Video</span>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-cyan/10 to-orange/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            />
+          </motion.button>
       </motion.div>
 
-      {/* Description with Enhanced Paper Effect */}
+        {/* Social Links */}
       <motion.div
-        variants={fadeIn("up", 0.6)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0 }}
-        className="mt-16 relative paper-texture max-w-3xl"
-      >
-        <div className="relative z-10 p-6 rounded-2xl backdrop-blur-sm bg-gradient-to-br from-amber-500/5 to-orange-500/5">
-          <p className="md:text-2xl sm:text-xl font-handwriting leading-relaxed">
-            <AnimatedText 
-              delay={0.6} 
-              className="bg-gradient-to-br from-amber-100 via-white to-orange-100 text-transparent bg-clip-text"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          className="flex gap-6 mt-6"
+        >
+          {socialLinks.map((social, index) => (
+            <motion.a
+              key={index}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.2, y: -5 }}
+              whileTap={{ scale: 0.9 }}
+              className={`text-2xl text-white/70 ${social.color} transition-all duration-300 relative group`}
             >
-              Crafting digital experiences that blend creativity with precision. 
-              With 1+ years of passionate development, 
-              I transform ideas into elegant, user-centric solutions.
-            </AnimatedText>
-          </p>
-          
-          {/* Quote Marks */}
-          <span className="absolute top-0 left-0 text-6xl font-signature text-amber-500/20 -translate-x-4 -translate-y-6">"</span>
-          <span className="absolute bottom-0 right-0 text-6xl font-signature text-amber-500/20 translate-x-4 translate-y-6">"</span>
+              <social.icon />
+              <motion.span
+                className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                {social.label}
+              </motion.span>
+            </motion.a>
+          ))}
+        </motion.div>
         </div>
         
-        {/* Enhanced Paper Effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/5 to-transparent pointer-events-none rounded-2xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(245,158,11,0.1),transparent)] pointer-events-none rounded-2xl" />
-      </motion.div>
-
-      {/* Enhanced Experience Badge */}
+      {/* Background Elements */}
       <motion.div
-        initial={{ scale: 0, rotate: -180 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ delay: 1.2, duration: 0.5, type: "spring" }}
-        className="absolute top-0 right-0 bg-gradient-to-br from-amber-500/20 via-orange-500/20 to-amber-500/20 p-4 rounded-full backdrop-blur-sm border border-amber-500/30 transform -rotate-12 hover:rotate-0 transition-all duration-500"
-      >
-        <span className="font-modern text-sm bg-gradient-to-r from-amber-400 to-orange-500 text-transparent bg-clip-text">
-          1+ Years
-          <br />
-          Experience
-        </span>
-      </motion.div>
+        className="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] pointer-events-none"
+        animate={{
+          background: [
+            "radial-gradient(circle at 30% 30%, rgba(21, 209, 233, 0.1) 0%, transparent 70%)",
+            "radial-gradient(circle at 70% 70%, rgba(251, 151, 24, 0.1) 0%, transparent 70%)",
+          ],
+        }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Decorative Lines */}
+      <div className="absolute -z-10 inset-0">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-cyan/20 via-orange/20 to-cyan/20"
+            style={{ top: `${(i + 1) * 25}%` }}
+            animate={{
+              opacity: [0, 0.5, 0],
+              scaleX: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3,
+              delay: i * 0.5,
+              repeat: Infinity,
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 };

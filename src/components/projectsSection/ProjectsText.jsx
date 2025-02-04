@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { FaRocket, FaLightbulb, FaCode } from "react-icons/fa";
+import { FaRocket, FaLightbulb, FaCode, FaChartLine } from "react-icons/fa";
 
 const ProjectsText = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -12,17 +12,26 @@ const ProjectsText = () => {
     {
       icon: FaRocket,
       title: "Innovation Driven",
-      description: "Pushing boundaries with cutting-edge technologies"
+      description: "Pushing boundaries with cutting-edge technologies",
+      gradient: "from-cyan to-blue-500"
     },
     {
       icon: FaLightbulb,
       title: "Problem Solving",
-      description: "Transforming challenges into elegant solutions"
+      description: "Transforming challenges into elegant solutions",
+      gradient: "from-orange to-yellow-500"
     },
     {
       icon: FaCode,
       title: "Clean Code",
-      description: "Building scalable and maintainable applications"
+      description: "Building scalable and maintainable applications",
+      gradient: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: FaChartLine,
+      title: "Performance Focused",
+      description: "Optimizing for speed and efficiency",
+      gradient: "from-green-500 to-cyan"
     }
   ];
 
@@ -110,12 +119,12 @@ const ProjectsText = () => {
         >
           innovative digital solutions
         </motion.span>
-        . Each project represents a unique challenge tackled with creativity, technical expertise, and a passion for excellence. From responsive web applications to complex system architectures, these projects showcase my commitment to delivering impactful solutions.
+        . Each project represents a unique challenge tackled with creativity, technical expertise, and a passion for excellence.
       </motion.p>
 
       {/* Highlight Cards */}
       <motion.div 
-        className="grid md:grid-cols-3 gap-8 w-full max-w-4xl mt-4"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mt-4 px-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1 }}
@@ -124,11 +133,14 @@ const ProjectsText = () => {
           <motion.div
             key={index}
             className="bg-darkGrey/30 backdrop-blur-sm rounded-xl p-6 border border-white/10 relative overflow-hidden group"
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(21, 209, 233, 0.1)" }}
+            whileHover={{ 
+              scale: 1.05,
+              backgroundColor: "rgba(21, 209, 233, 0.1)",
+            }}
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              className="text-3xl text-orange mb-4"
+              className={`text-3xl bg-gradient-to-r ${highlight.gradient} text-transparent bg-clip-text mb-4`}
               animate={{
                 rotate: isHovered ? [0, -10, 10, -10, 0] : 0,
               }}
@@ -143,7 +155,7 @@ const ProjectsText = () => {
             <motion.div
               className="absolute -bottom-2 -right-2 w-16 h-16 border-b-2 border-r-2 rounded-br-xl opacity-0 group-hover:opacity-100"
               style={{
-                borderColor: index === 0 ? "#15d1e9" : index === 1 ? "#fb9718" : "#9f7aea"
+                borderImage: `linear-gradient(to right, ${index % 2 === 0 ? '#15d1e9, #fb9718' : '#fb9718, #15d1e9'}) 1`
               }}
               transition={{ duration: 0.3 }}
             />
@@ -153,15 +165,15 @@ const ProjectsText = () => {
 
       {/* Stats section */}
       <motion.div 
-        className="flex gap-16 mt-16"
+        className="flex flex-wrap justify-center gap-8 md:gap-16 mt-16"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1.2 }}
       >
         {[
-          { number: "10+", label: "Projects Delivered", color: "cyan" },
-          { number: "127+", label: "Satisfied Clients", color: "orange" },
-          { number: "3+", label: "Years Experience", color: "cyan" }
+          { number: "15+", label: "Projects Completed", color: "cyan" },
+          { number: "99%", label: "Client Satisfaction", color: "orange" },
+          { number: "5+", label: "Years Experience", color: "cyan" }
         ].map((stat, index) => (
           <motion.div
             key={index}
@@ -211,7 +223,7 @@ const ProjectsText = () => {
       {/* Floating particles */}
       {isHovered && (
         <>
-          {[...Array(8)].map((_, i) => (
+          {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-1 h-1 rounded-full"

@@ -1,7 +1,7 @@
 import { Link } from "react-scroll";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { FaReact, FaCode, FaYoutube, FaGraduationCap, FaLaptopCode, FaBrain, FaRocket } from "react-icons/fa";
+import { FaReact, FaCode, FaYoutube, FaGraduationCap, FaLaptopCode, FaBrain, FaRocket, FaBriefcase, FaAward } from "react-icons/fa";
 import { BiCodeAlt } from "react-icons/bi";
 
 const GlowingText = ({ children, color = "cyan" }) => (
@@ -45,26 +45,53 @@ const AboutMeText = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [activeSkill, setActiveSkill] = useState(null);
   const [selectedHighlight, setSelectedHighlight] = useState(null);
+  const [activeTab, setActiveTab] = useState("skills");
   const controls = useAnimation();
 
-  const skills = [
-    { icon: FaReact, text: "React Development", color: "cyan", description: "Building modern web applications" },
-    { icon: FaCode, text: "Frontend Mastery", color: "orange", description: "Creating beautiful user interfaces" },
-    { icon: FaYoutube, text: "Content Creation", color: "red-500", description: "Sharing knowledge through videos" },
-    { icon: FaGraduationCap, text: "Teaching", color: "green-500", description: "Guiding future developers" },
-    { icon: FaLaptopCode, text: "Full Stack", color: "purple-500", description: "End-to-end development" },
-    { icon: FaBrain, text: "Problem Solving", color: "yellow-500", description: "Analytical thinking" },
-    { icon: FaRocket, text: "Innovation", color: "blue-500", description: "Pushing boundaries" },
-    { icon: BiCodeAlt, text: "Clean Code", color: "pink-500", description: "Writing maintainable code" }
+  const education = [
+    {
+      degree: "Bachelor of Computer Science",
+      school: "Dilla University",
+      year: "Current",
+      description: "Focusing on software engineering and modern programming technologies",
+    }
   ];
 
-  const highlights = [
-    { text: "React", color: "cyan" },
-    { text: "front-end development", color: "orange" },
-    { text: "YouTube", color: "red-500" },
-    { text: "CodeNest", color: "green-500" },
-    { text: "tutorials", color: "yellow-500" },
-    { text: "successful careers", color: "purple-500" }
+  const skills = [
+    { name: "Python Programming", level: 75 },
+    { name: "Web Development", level: 80 },
+    { name: "Java", level: 70 },
+    { name: "Data Structures", level: 75 },
+    { name: "Algorithms", level: 70 },
+    { name: "Database Management", level: 65 },
+  ];
+
+  const experience = [
+    {
+      role: "Student Developer",
+      company: "University Projects",
+      year: "Present",
+      description: "Leading development teams in various academic projects, focusing on innovative solutions",
+    },
+    {
+      role: "Programming Enthusiast",
+      company: "Self-Learning & Open Source",
+      year: "2022-Present",
+      description: "Contributing to open-source projects and building personal development portfolio",
+    }
+  ];
+
+  const achievements = [
+    {
+      title: "Academic Excellence",
+      year: "2023",
+      description: "Consistently maintaining top academic performance in programming courses",
+    },
+    {
+      title: "Project Leadership",
+      year: "2023",
+      description: "Successfully led multiple team projects in software development courses",
+    }
   ];
 
   useEffect(() => {
@@ -82,131 +109,222 @@ const AboutMeText = () => {
     });
   }, [controls]);
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case "skills":
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-6"
+          >
+            {skills.map((skill, index) => (
+              <div key={index} className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/90">{skill.name}</span>
+                  <span className="text-cyan">{skill.level}%</span>
+                </div>
+                <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-cyan to-orange"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${skill.level}%` }}
+                    transition={{ duration: 1, delay: index * 0.1 }}
+                  />
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        );
+
+      case "education":
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-6"
+          >
+            {education.map((edu, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative pl-6 pb-6 border-l-2 border-cyan/20 last:pb-0"
+              >
+                <motion.div
+                  className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-dark-2 border-2 border-cyan"
+                  whileHover={{ scale: 1.2 }}
+                />
+                <h3 className="text-xl font-semibold text-white">{edu.degree}</h3>
+                <p className="text-orange">{edu.school}</p>
+                <p className="text-white/60">{edu.year}</p>
+                <p className="text-white/80 mt-2">{edu.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        );
+
+      case "experience":
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-6"
+          >
+            {experience.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative pl-6 pb-6 border-l-2 border-orange/20 last:pb-0"
+              >
+                <motion.div
+                  className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-dark-2 border-2 border-orange"
+                  whileHover={{ scale: 1.2 }}
+                />
+                <h3 className="text-xl font-semibold text-white">{exp.role}</h3>
+                <p className="text-cyan">{exp.company}</p>
+                <p className="text-white/60">{exp.year}</p>
+                <p className="text-white/80 mt-2">{exp.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        );
+
+      case "achievements":
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-6"
+          >
+            {achievements.map((achievement, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300"
+              >
+                <div className="flex justify-between items-start">
+                  <h3 className="text-xl font-semibold text-white">{achievement.title}</h3>
+                  <span className="text-cyan text-sm">{achievement.year}</span>
+                </div>
+                <p className="text-white/80 mt-2">{achievement.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="flex flex-col md:items-start sm:items-center md:text-left sm:text-center">
-      <motion.h2 
-        className="text-6xl text-cyan mb-10 relative group"
+    <div className="space-y-8">
+      {/* Introduction */}
+      <div className="space-y-4">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-3xl font-bold bg-gradient-to-r from-cyan to-orange bg-clip-text text-transparent"
+        >
+          Aspiring Developer
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-white/80 leading-relaxed"
+        >
+          A passionate Computer Science student at Dilla University with a strong foundation in programming and software development. Combining academic excellence with practical project experience to build innovative solutions.
+        </motion.p>
+      </div>
+
+      {/* Stats */}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ delay: 0.3 }}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4"
       >
-        <motion.span
-          className="inline-block cursor-pointer relative"
-          whileHover={{
-            scale: 1.1,
-            color: "#fb9718",
-            textShadow: "0 0 12px rgba(251, 151, 24, 0.6)",
-          }}
-        >
-          <TypingText text="About Me" delay={0.5} />
-          <motion.div
-            className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-cyan via-orange to-cyan"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-          />
-        </motion.span>
-        
-        {/* Floating particles around title */}
-        <motion.div
-          className="absolute -top-4 -right-4 w-2 h-2 bg-cyan rounded-full"
-          animate={{
-            y: [-10, 10],
-            opacity: [0.2, 1, 0.2],
-            scale: [1, 1.5, 1],
-          }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute -bottom-4 -left-4 w-2 h-2 bg-orange rounded-full"
-          animate={{
-            y: [10, -10],
-            opacity: [0.2, 1, 0.2],
-            scale: [1, 1.5, 1],
-          }}
-          transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-        />
-      </motion.h2>
-
-      {/* Skills Grid */}
-      <motion.div 
-        className="grid grid-cols-4 gap-4 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 1 }}
-      >
-        {skills.map((skill, index) => (
+        {[
+          { label: "Course Projects", value: "10+" },
+          { label: "Programming Languages", value: "5+" },
+          { label: "Team Projects", value: "8+" },
+          { label: "GitHub Repositories", value: "15+" },
+        ].map((stat, index) => (
           <motion.div
             key={index}
-            className="relative group"
-            onHoverStart={() => setActiveSkill(index)}
-            onHoverEnd={() => setActiveSkill(null)}
-            whileHover={{ scale: 1.1, zIndex: 10 }}
+            whileHover={{ scale: 1.05 }}
+            className="p-4 rounded-xl bg-white/5 text-center"
           >
-            <motion.div
-              className={`p-4 rounded-xl bg-${skill.color}/10 backdrop-blur-sm relative overflow-hidden
-                border border-transparent hover:border-${skill.color}/20 transition-all duration-300`}
-              animate={activeSkill === index ? {
-                scale: [1, 1.05, 1],
-                rotate: [0, 5, 0],
-              } : {}}
-              transition={{ duration: 1 }}
+            <motion.h3
+              className="text-2xl font-bold bg-gradient-to-r from-cyan to-orange bg-clip-text text-transparent"
+              animate={{
+                backgroundPosition: ["0%", "100%", "0%"],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{
+                backgroundSize: "200% auto",
+              }}
             >
-              <div className="flex flex-col items-center gap-2">
-                <skill.icon className={`text-2xl text-${skill.color}`} />
-                <span className={`text-sm text-${skill.color}/90 font-medium`}>
-                  {skill.text}
-                </span>
-              </div>
-
-              <AnimatePresence>
-                {activeSkill === index && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className={`absolute inset-0 p-4 bg-${skill.color}/90 text-white
-                      flex items-center justify-center text-center text-sm`}
-                  >
-                    {skill.description}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+              {stat.value}
+            </motion.h3>
+            <p className="text-white/60 text-sm mt-1">{stat.label}</p>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Main Text Content */}
-      <div className="relative space-y-4">
-        <motion.p
+      {/* Tabs */}
+      <div className="space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="flex space-x-4 overflow-x-auto pb-2"
+        >
+          {["skills", "education", "experience", "achievements"].map((tab) => (
+            <motion.button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 ${
+                activeTab === tab
+                  ? "bg-gradient-to-r from-cyan to-orange text-white"
+                  : "bg-white/5 text-white/60 hover:bg-white/10"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab === "skills" && <FaCode className="text-lg" />}
+              {tab === "education" && <FaGraduationCap className="text-lg" />}
+              {tab === "experience" && <FaBriefcase className="text-lg" />}
+              {tab === "achievements" && <FaAward className="text-lg" />}
+              <span>{tab.charAt(0).toUpperCase() + tab.slice(1)}</span>
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Tab Content */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          className="relative z-10 leading-relaxed"
+          transition={{ delay: 0.5 }}
+          className="min-h-[300px]"
         >
-          {highlights.map((highlight, index) => (
-            <span key={index}>
-              {index > 0 && " "}
-              <motion.span
-                className={`cursor-pointer inline-block text-${highlight.color} hover:scale-110
-                  transition-transform duration-200 hover:font-medium`}
-                whileHover={{
-                  textShadow: `0 0 8px rgba(var(--${highlight.color}-rgb), 0.5)`,
-                }}
-                onClick={() => setSelectedHighlight(highlight)}
-              >
-                {highlight.text}
-              </motion.span>
-            </span>
-          ))} and helping students build real-world projects. I create engaging content and guide aspiring developers toward their dreams.
-        </motion.p>
-
-        {/* Animated background gradient */}
-        <motion.div
-          className="absolute inset-0 -z-10 opacity-5 rounded-lg"
-          animate={controls}
-        />
+          {renderContent()}
+        </motion.div>
       </div>
 
       {/* Call to Action Button */}
@@ -234,17 +352,17 @@ const AboutMeText = () => {
               ease: "linear",
             }}
           />
-        <Link
-          spy={true}
-          smooth={true}
-          duration={500}
-          offset={-120}
-          to="projects"
+          <Link
+            spy={true}
+            smooth={true}
+            duration={500}
+            offset={-120}
+            to="projects"
             className="relative z-10 px-8 py-3 text-lg font-medium text-white block
               hover:text-cyan transition-all duration-300"
-        >
+          >
             Discover My Work
-        </Link>
+          </Link>
 
           {/* Particle effects */}
           {isHovered && (
@@ -285,13 +403,13 @@ const AboutMeText = () => {
             <motion.div
               className="bg-gray-900/90 p-6 rounded-2xl border border-cyan/20 max-w-md"
               onClick={e => e.stopPropagation()}
-              layoutId={`highlight-${selectedHighlight.text}`}
+              layoutId={`highlight-${selectedHighlight.name}`}
             >
               <h3 className={`text-2xl font-bold text-${selectedHighlight.color} mb-4`}>
-                {selectedHighlight.text}
+                {selectedHighlight.name}
               </h3>
               <p className="text-gray-300">
-                Detailed information about {selectedHighlight.text} and how it contributes to my development journey.
+                Detailed information about {selectedHighlight.name} and how it contributes to my development journey.
               </p>
             </motion.div>
           </motion.div>
@@ -302,3 +420,4 @@ const AboutMeText = () => {
 };
 
 export default AboutMeText;
+

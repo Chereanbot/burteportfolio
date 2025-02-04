@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { fadeIn } from "../../framerMotion/variants";
+import { FaReact, FaNodeJs, FaDatabase, FaCode } from "react-icons/fa";
 
 const TechBadge = ({ name, direction, pair, letter, delay = "0s" }) => (
   <div 
@@ -37,87 +37,166 @@ const TechBadge = ({ name, direction, pair, letter, delay = "0s" }) => (
 );
 
 const HeroPic = () => {
-  const techStack = [
-    // North-South Pair (bir)
-    { 
-      name: "React", 
-      direction: "n top-0 left-1/2 -translate-x-1/2 -translate-y-16", 
-      pair: { lineStyle: "h-32 left-1/2 top-full" },
-      letter: "bir",
-      delay: "0s" 
-    },
-    { 
-      name: "Node.js", 
-      direction: "s bottom-0 left-1/2 -translate-x-1/2 translate-y-16", 
-      pair: { lineStyle: "h-32 left-1/2 bottom-full" },
-      letter: "bir",
-      delay: "0s" 
-    },
-    // East-West Pair (tukan)
-    { 
-      name: "JavaScript", 
-      direction: "e right-0 top-1/2 translate-x-16 -translate-y-1/2", 
-      pair: { lineStyle: "w-32 right-full top-1/2" },
-      letter: "tukan",
-      delay: "0.4s" 
-    },
-    { 
-      name: "TypeScript", 
-      direction: "w left-0 top-1/2 -translate-x-16 -translate-y-1/2", 
-      pair: { lineStyle: "w-32 left-full top-1/2" },
-      letter: "tukan",
-      delay: "0.4s" 
-    },
-    // Northeast-Southwest Pair (w/)
-    { 
-      name: "Next.js", 
-      direction: "ne top-8 right-8 translate-x-8 -translate-y-8", 
-      pair: { lineStyle: "h-[200%] rotate-[135deg] origin-bottom-left left-1/2 top-full" },
-      letter: "w/",
-      delay: "0.8s" 
-    },
-    { 
-      name: "MongoDB", 
-      direction: "sw bottom-8 left-8 -translate-x-8 translate-y-8", 
-      pair: { lineStyle: "h-[200%] rotate-[135deg] origin-top-right right-1/2 bottom-full" },
-      letter: "w/",
-      delay: "0.8s" 
-    },
-    // Northwest-Southeast Pair (mikael)
-    { 
-      name: "TailwindCSS", 
-      direction: "nw top-8 left-8 -translate-x-8 -translate-y-8", 
-      pair: { lineStyle: "h-[200%] rotate-[45deg] origin-bottom-right right-1/2 top-full" },
-      letter: "mikael",
-      delay: "1.2s" 
-    },
-    { 
-      name: "Redux", 
-      direction: "se bottom-8 right-8 translate-x-8 translate-y-8", 
-      pair: { lineStyle: "h-[200%] rotate-[45deg] origin-top-left left-1/2 bottom-full" },
-      letter: "mikael",
-      delay: "1.2s" 
-    }
+  const techIcons = [
+    { Icon: FaReact, color: "text-cyan", delay: 0 },
+    { Icon: FaNodeJs, color: "text-green-500", delay: 0.2 },
+    { Icon: FaDatabase, color: "text-orange", delay: 0.4 },
+    { Icon: FaCode, color: "text-purple-500", delay: 0.6 }
   ];
 
   return (
     <motion.div
-      variants={fadeIn("left", 0.5)}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: false, amount: 0.7 }}
-      className="hidden lg:flex flex-1 max-w-[320px] lg:max-w-[482px] mx-auto"
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.2,
+        ease: "easeOut"
+      }}
+      className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] group"
     >
-      <img
-        src="/images/HexaPic.png"
-        alt="Hero"
-        className="w-full h-full object-contain"
-        loading="eager"
-        onError={(e) => {
-          console.error('Image failed to load:', e);
-          e.target.src = '/images/fallback-image.png';
-        }}
+      {/* Orbital Ring */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 rounded-full border-2 border-dashed border-white/10"
+        style={{ transform: "rotate(45deg)" }}
       />
+
+      {/* Tech Icons Orbit */}
+      {techIcons.map(({ Icon, color, delay }, index) => (
+        <motion.div
+          key={index}
+          className={`absolute ${color} text-2xl`}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: delay + 1, duration: 0.5 }}
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear", delay }}
+            style={{
+              transformOrigin: "150px 150px",
+              transform: `rotate(${index * 90}deg) translateX(150px)`
+            }}
+          >
+            <Icon />
+          </motion.div>
+        </motion.div>
+      ))}
+
+      {/* Background Glow */}
+      <motion.div
+        animate={{
+          boxShadow: [
+            "0 0 40px rgba(21, 209, 233, 0.3)",
+            "0 0 80px rgba(251, 151, 24, 0.3)",
+            "0 0 40px rgba(21, 209, 233, 0.3)"
+          ]
+        }}
+        transition={{ duration: 4, repeat: Infinity }}
+        className="absolute inset-4 rounded-full bg-gradient-to-br from-cyan/20 to-orange/20 blur-xl"
+      />
+
+      {/* Profile Picture Container */}
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/20 p-2 backdrop-blur-sm"
+      >
+        {/* Rotating Border */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: "conic-gradient(from 0deg, #15d1e9, #fb9718, #15d1e9)",
+            opacity: 0.3
+          }}
+        />
+
+        {/* Image Container */}
+        <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-cyan/10 to-orange/10">
+          <motion.div
+            className="w-full h-full"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="/images/HexaPic.png"
+              alt="Profile"
+              className="w-full h-full object-cover rounded-full"
+            />
+          </motion.div>
+
+          {/* Interactive Overlay */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            whileHover={{ opacity: 1 }}
+          >
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+              <motion.span
+                initial={{ y: 20, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="text-white/90 text-sm font-medium"
+              >
+                Full Stack Developer
+              </motion.span>
+          </div>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Floating Elements */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-4 h-4"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            y: [0, -20, 0],
+            opacity: [0, 1, 0],
+            scale: [0.8, 1.2, 0.8],
+          }}
+          transition={{
+            duration: 3,
+            delay: i * 0.5,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+        >
+          <div className={`w-full h-full rounded-full ${
+            i % 2 === 0 ? 'bg-cyan' : 'bg-orange'
+          } blur-sm opacity-50`} />
+        </motion.div>
+      ))}
+
+      {/* Tech Circuit Lines */}
+      <div className="absolute inset-0">
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-full h-full"
+            style={{ transform: `rotate(${i * 45}deg)` }}
+          >
+            <motion.div
+              className="absolute top-0 left-1/2 w-[1px] h-1/4 bg-gradient-to-b from-cyan/50 to-transparent"
+              animate={{
+                scaleY: [0, 1, 0],
+                opacity: [0, 0.5, 0]
+              }}
+              transition={{
+                duration: 2,
+                delay: i * 0.5,
+                repeat: Infinity
+              }}
+            />
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   );
 };
