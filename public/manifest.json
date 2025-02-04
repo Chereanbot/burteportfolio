@@ -1,0 +1,95 @@
+{
+  "short_name": "BRUTE Portfolio",
+  "name": "Birtukan W/Mikael - Full Stack Developer Portfolio",
+  "description": "Portfolio of Birtukan W/Mikael (BRUTE), a passionate Full Stack Developer who started coding at a young age. Featuring 10+ completed projects showcasing expertise in MERN stack, cloud computing, and innovative web solutions.",
+  "developer": {
+    "name": "Cherinet Afewerk",
+    "website": "https://cherinetafewerk.vercel.app",
+    "role": "Lead Developer & Technical Architect",
+    "expertise": [
+      "Full Stack Development",
+      "System Architecture",
+      "UI/UX Design",
+      "Technical Leadership"
+    ],
+    "description": "Experienced developer known for creating scalable web applications and exceptional user experiences"
+  },
+  "author": {
+    "name": "Birtukan W/Mikael",
+    "alias": "BRUTE",
+    "role": "Full Stack Developer",
+    "background": "Started coding at a young age with a passion for technology",
+    "expertise": [
+      "MERN Stack Development",
+      "Cloud Computing",
+      "Modern Web Applications",
+      "Innovative Solutions"
+    ]
+  },
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": ["portfolio", "development", "web development", "full stack"],
+  "screenshots": [],
+  "skills": [
+    "Full Stack Development",
+    "MERN Stack",
+    "Frontend Development",
+    "Backend Development",
+    "Database Design",
+    "API Development",
+    "Cloud Computing",
+    "DevOps",
+    "UI/UX Design",
+    "Mobile-First Development",
+    "Progressive Web Apps",
+    "Performance Optimization"
+  ],
+  "technologies": [
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "JavaScript",
+    "TypeScript",
+    "HTML5",
+    "CSS3",
+    "Git",
+    "REST APIs",
+    "GraphQL",
+    "AWS",
+    "Docker",
+    "Redux",
+    "Next.js",
+    "TailwindCSS",
+    "Framer Motion"
+  ],
+  "projectHighlights": {
+    "count": "10+",
+    "focus": [
+      "Modern Web Applications",
+      "Scalable Architecture",
+      "User Experience",
+      "Performance Optimization"
+    ]
+  }
+}
