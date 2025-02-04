@@ -1,11 +1,11 @@
 // Image loader utility
 export const getImageUrl = (path) => {
   try {
-    // First try to get the image from the public folder
-    const publicUrl = new URL(`/public${path}`, import.meta.url).href;
-    return publicUrl;
+    // Remove the public prefix if it exists
+    const cleanPath = path.replace('public/', '');
+    return cleanPath;
   } catch (error) {
-    // Fallback to direct path
+    console.error('Error processing image path:', error);
     return path;
   }
 };
@@ -20,12 +20,14 @@ export const handleImageError = (event, fallbackImage = '/images/fallback-image.
 export const preloadImages = (images) => {
   images.forEach(src => {
     const img = new Image();
-    img.src = typeof src === 'string' ? src : src.url;
+    img.src = typeof src === 'string' ? getImageUrl(src) : getImageUrl(src.url);
+    img.onerror = () => console.error('Failed to preload image:', src);
   });
 };
 
 // Get optimized image size
 export const getOptimizedImageUrl = (path, width = 800) => {
+  const cleanPath = getImageUrl(path);
   // If using a CDN or image optimization service, modify the URL here
-  return `${path}?w=${width}&q=75`;
+  return `${cleanPath}?w=${width}&q=75`;
 }; 

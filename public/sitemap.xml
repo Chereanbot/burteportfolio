@@ -3,52 +3,56 @@
 <!-- Developed by Cherinet Afewerk (https://cherinetafewerk.vercel.app) -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://burtuportfolio.vercel.app/</loc>
+    <loc>https://burteportfolio.vercel.app/</loc>
     <lastmod>2024-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
 
   </url>
   <url>
-    <loc>https://burtuportfolio.vercel.app/#about</loc>
+    <loc>https://burteportfolio.vercel.app/#about</loc>
     <lastmod>2024-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
 
   </url>
   <url>
-    <loc>https://burtuportfolio.vercel.app/#skills</loc>
+    <loc>https://burteportfolio.vercel.app/#skills</loc>
     <lastmod>2024-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
   </url>
   <url>
-    <loc>https://burtuportfolio.vercel.app/#experience</loc>
+    <loc>https://burteportfolio.vercel.app/#experience</loc>
     <lastmod>2024-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
+
   </url>
   <url>
-    <loc>https://burtuportfolio.vercel.app/#projects</loc>
+    <loc>https://burteportfolio.vercel.app/#projects</loc>
     <lastmod>2024-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
+
   </url>
   <url>
-    <loc>https://burtuportfolio.vercel.app/#testimonials</loc>
+    <loc>https://burteportfolio.vercel.app/#testimonials</loc>
     <lastmod>2024-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
 
+
   </url>
-  <url>
-    <loc>https://burtuportfolio.vercel.app/#contact</loc>
+    <url>
+    <loc>https://burteportfolio.vercel.app/#contact</loc>
     <lastmod>2024-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+
 
   </url>
 </urlset> 

@@ -1,4 +1,3 @@
-import ProjectsText from "./ProjectsText";
 import SingleProject from "./SingleProject";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
@@ -87,28 +86,29 @@ const projects = [
 
 const ProjectsMain = () => {
   return (
-    <div id="projects" className="max-w-[1200px] mx-auto px-4">
-      <motion.div
-        variants={fadeIn("top", 0)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0.7 }}
-      >
-        <ProjectsText />
-      </motion.div>
-      <div className="flex flex-col gap-20 max-w-[900px] mx-auto mt-12">
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
+    <section className="min-h-screen flex items-center" id="projects">
+      <div className="container mx-auto">
+        <div className="flex flex-col gap-24">
+          {/* Text */}
+          <motion.h2
+            variants={fadeIn("up", 0.2)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, amount: 0.3 }}
+            className="h2 text-center"
           >
-            <SingleProject {...project} />
-          </motion.div>
-        ))}
+            My Projects
+          </motion.h2>
+
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <SingleProject key={index} {...project} index={index} />
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

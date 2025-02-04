@@ -7,27 +7,18 @@ import { fadeIn } from "../../framerMotion/variants";
 
 const SingleProject = ({ 
   name, 
-  year, 
-  align, 
   image, 
-  link, 
-  github, 
   description, 
-  tech, 
-  features,
-  category,
-  role,
-  impact
+  link, 
+  index = 0 
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <motion.div
-      variants={fadeIn("right", 0.2)}
+      variants={fadeIn("up", 0.2 * index)}
       initial="hidden"
       whileInView="show"
       viewport={{ once: false, amount: 0.3 }}
-      className="group relative overflow-hidden border-2 border-white/50 rounded-xl cursor-pointer"
+      className="group relative overflow-hidden border-2 border-white/50 rounded-xl h-[300px] md:h-[400px]"
     >
       {/* overlay */}
       <div className="group-hover:bg-black/70 w-full h-full absolute z-40 transition-all duration-300"></div>
@@ -44,11 +35,11 @@ const SingleProject = ({
       />
       {/* pretitle */}
       <div className="absolute -bottom-full left-12 group-hover:bottom-24 transition-all duration-500 z-50">
-        <span className="text-gradient">{name}</span>
+        <span className="text-gradient text-[20px] lg:text-[26px]">{name}</span>
       </div>
       {/* title */}
       <div className="absolute -bottom-full left-12 group-hover:bottom-14 transition-all duration-700 z-50">
-        <span className="text-3xl text-white">{description}</span>
+        <span className="text-white text-[16px] lg:text-[20px]">{description}</span>
       </div>
       {/* Link */}
       {link && (
@@ -57,7 +48,7 @@ const SingleProject = ({
             href={link} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-gradient hover:underline"
+            className="text-gradient hover:underline text-[16px] lg:text-[20px]"
           >
             View Project →
           </a>
