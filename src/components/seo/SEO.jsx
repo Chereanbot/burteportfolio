@@ -100,7 +100,7 @@ const SEO = ({
       <meta name="developer" content="Cherinet Afewerk" />
       
       {/* Google Images Optimization */}
-      <meta name="google-site-verification" content="your-verification-code" />
+      <meta name="google-site-verification" content="dc67705f444f6806" />
       <meta name="image" content={socialImages.hero} />
       <meta name="image:alt" content={imageMetadata.hero.alt} />
       <meta name="thumbnail" content={socialImages.thumbnail} />

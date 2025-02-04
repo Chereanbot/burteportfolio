@@ -20,7 +20,7 @@ import { preloadImages } from "./utils/imageLoader";
 
 // Critical images to preload
 const criticalImages = [
-  '/images/me.png',
+  '/images/HexaPic.png',
   '/images/about-me.jpg',
   '/images/skills.avif',
   '/images/subSkills.jpg',

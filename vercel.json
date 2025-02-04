@@ -9,6 +9,13 @@
   ],
   "routes": [
     {
+      "src": "/googledc67705f444f6806.html",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "continue": true
+    },
+    {
       "src": "/images/(.*)",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
@@ -25,7 +32,7 @@
   ],
   "images": {
     "sizes": [640, 750, 828, 1080, 1200, 1920],
-    "domains": ["your-portfolio-url.vercel.app"],
+    "domains": ["burtuportfolio.vercel.app"],
     "minimumCacheTTL": 60,
     "formats": ["image/webp", "image/avif"]
   }
