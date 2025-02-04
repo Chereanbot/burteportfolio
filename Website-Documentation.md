@@ -349,10 +349,11 @@ const AnalyticsSystem = () => {
   - Basic animations
 
 ## 📞 Support & Contact
-- Developer: BURTE. W/M
-- Email: [Your Email]
-- GitHub: [Your GitHub]
-- LinkedIn: [Your LinkedIn]
+- Developer: Cherinet Afewerk
+- Email: [cscher331@gmail.com]
+- GitHub: [https://github.com/chereanbot]
+- LinkedIn: [https://www.linkedin.com/in/burte-w-m-0a0a0a0a0a0a/]
+
 
 -------------------
 
