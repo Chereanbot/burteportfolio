@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import AboutMeMain from "./components/aboutMeSection/AboutMeMain";
 import ContactMeMain from "./components/contactMeSection/ContactMeMain";
 import ExperienceMain from "./components/experienceSection/ExperienceMain";
@@ -15,8 +16,27 @@ import BruteTransition from "./components/loading/BruteTransition";
 import SectionTransition from "./components/loading/SectionTransition";
 import { HelmetProvider } from 'react-helmet-async';
 import SEO from "./components/seo/SEO";
+import { preloadImages } from "./utils/imageLoader";
+
+// Critical images to preload
+const criticalImages = [
+  '/images/me.png',
+  '/images/about-me.jpg',
+  '/images/skills.avif',
+  '/images/subSkills.jpg',
+  '/images/experience-image.png',
+  '/images/website-img-1.jpg',
+  '/images/website-img-2.webp',
+  '/images/website-img-3.jpg',
+  '/images/website-img-4.jpg',
+];
 
 function App() {
+  useEffect(() => {
+    // Preload critical images
+    preloadImages(criticalImages);
+  }, []);
+
   return (
     <HelmetProvider>
       <LoadingProvider>

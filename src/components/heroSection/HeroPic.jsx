@@ -102,69 +102,22 @@ const HeroPic = () => {
 
   return (
     <motion.div
-      variants={fadeIn("left", 0.2)}
+      variants={fadeIn("left", 0.5)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: false, amount: 0 }}
-      className="relative h-full flex items-center justify-center"
+      viewport={{ once: false, amount: 0.7 }}
+      className="hidden lg:flex flex-1 max-w-[320px] lg:max-w-[482px] mx-auto"
     >
-      {/* Technology Badges */}
-      <div className="absolute inset-0 z-20">
-        {techStack.map((tech, index) => (
-          <TechBadge key={index} {...tech} />
-        ))}
-      </div>
-
-      {/* Main Image Container with Tech Float */}
-      <div className="relative z-10 p-4 animate-tech-float">
-        <div className="relative group">
-          <img
-            src="../../public/images/HexaPic.png"
-            alt="birtukan w/mikael"
-            className="max-h-[450px] w-auto rounded-2xl shadow-2xl relative z-10"
-          />
-          {/* Tech Pulse Overlay */}
-          <div className="absolute inset-0 rounded-2xl animate-tech-pulse" />
-          
-          {/* Scanning Effect */}
-          <div className="absolute inset-0 bg-gradient-to-b from-amber-500/20 via-amber-500/0 to-amber-500/20 animate-tech-scan" />
-          
-          {/* Tech Circuit Pattern */}
-          <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle,transparent_2px,rgba(245,158,11,0.2)_2px)] bg-[size:8px_8px] animate-tech-circuit" />
-        </div>
-      </div>
-
-      {/* Tech Pattern Background */}
-      <div className="absolute inset-0 -z-10">
-        {/* Breathing Animation Container */}
-        <div className="relative w-full h-full overflow-hidden">
-          {/* Animated Tech Grid */}
-          <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(245,158,11,0.1)_1px,transparent_1px),linear-gradient(-45deg,rgba(245,158,11,0.1)_1px,transparent_1px)] bg-[size:20px_20px] animate-tech-grid" />
-          
-          {/* Rotating Tech Wave */}
-          <div className="absolute inset-0 border-4 border-amber-500/10 rounded-full animate-tech-wave" />
-          
-          {/* Stair Pattern 1 with Tech Glitch */}
-          <div className="absolute inset-0 border-2 border-amber-500/20 rounded-tr-[100px] animate-breathe-1 before:content-[''] before:absolute before:inset-0 before:bg-amber-500/5 before:animate-tech-glitch" />
-          
-          {/* Stair Pattern 2 with Blinking */}
-          <div className="absolute inset-4 border-2 border-amber-500/30 rounded-tr-[80px] animate-breathe-2">
-            <div className="absolute inset-0 bg-amber-500/5 animate-tech-blink" />
-          </div>
-          
-          {/* Stair Pattern 3 */}
-          <div className="absolute inset-8 border-2 border-amber-500/40 rounded-tr-[60px] animate-breathe-3" />
-          
-          {/* Tech Glow Effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-amber-500/10 to-gray-900 rounded-3xl blur-xl animate-breathe-glow" />
-        </div>
-      </div>
-
-      {/* Dynamic Tech Grid Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,158,11,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,158,11,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)] animate-tech-grid" />
-      
-      {/* Circuit Board Pattern */}
-      <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMSIgZmlsbD0iI2Y1OWUwYiIvPjwvc3ZnPg==')] bg-repeat animate-tech-circuit" />
+      <img
+        src="/images/me.png"
+        alt="Hero"
+        className="w-full h-full object-contain"
+        loading="eager"
+        onError={(e) => {
+          console.error('Image failed to load:', e);
+          e.target.src = '/images/fallback-image.png';
+        }}
+      />
     </motion.div>
   );
 };
